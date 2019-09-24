@@ -1,31 +1,31 @@
 <template>
   <div class="about">
-    <component-body :error='error'/>
-    <div class="words">
-      <div v-for="(item, i) in words.split('').length" :key="i">
-        <span v-if="wordsSuccess.filter((it) => it === words[i]).length > 0">{{ words[i] }}</span>
-      </div>
-    </div>
-    <input v-model="wordsClient" maxlength="1" />
-    <button @click="onCheckLetters">teste</button>
+    <component-box-error v-if="wordsError.length > 0" :wordsError="wordsError" />
+    <component-body :error="error" />
+    <component-body-words :success="wordsSuccess" :words="words" />
+    <input class="input-words" @keyup.enter="onCheckLetters" v-model="wordsClient" maxlength="1" />
   </div>
 </template>
 
 <script>
-import Body from '../components/Body';
+import Body from "../components/Body";
+import BoxError from "../components/BoxError";
+import BodyWords from "../components/BodyWords";
 
 export default {
-  name: "game",
+  name: "Game",
   data: () => ({
     words: "Metallica",
     error: 1,
     wordsError: [],
     wordsSuccess: [],
     wordsClient: "",
-    err: false,
+    err: false
   }),
   components: {
-    'component-body': Body
+    "component-body": Body,
+    "component-box-error": BoxError,
+    "component-body-words": BodyWords
   },
   methods: {
     onCheckLetters() {
@@ -71,19 +71,15 @@ export default {
 </script>
 
 <style scoped>
-.words {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.words div {
-  margin: 1em;
-  border-bottom: 2px solid;
-  width: 32px;
-  padding-bottom: 6px;
-}
-.words div span {
-  font-size: 2em;
-  font-weight: 400;
+.input-words {
+  height: 36px;
+  border-radius: 11px;
+  border: 2px solid #2c3e50;
+  color: #2c3e50;
+  font-size: 25px;
+  width: 53px;
+  text-align: center;
+  outline: none;
+  margin-top: 2em;
 }
 </style>
