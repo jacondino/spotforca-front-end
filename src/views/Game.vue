@@ -29,9 +29,11 @@ export default {
   },
   methods: {
     onCheckLetters() {
-      const p = this.words.split("");
+      const word = this.words.split("");
+
       if(this.check()) return
-      p.map(it => {
+
+      word.map(it => {
         if (it.toUpperCase() === this.wordsClient.toUpperCase()) {
           this.wordsSuccess.push(it);
           this.err = true;
