@@ -30,24 +30,7 @@ export default {
   methods: {
     onCheckLetters() {
       const p = this.words.split("");
-
-      if (!this.wordsClient) return;
-
-      const checkSuccess = this.wordsSuccess.filter(
-        it => it.toUpperCase() == this.wordsClient.toUpperCase()
-      );
-
-      const checkError = this.wordsError.filter(
-        it => it.toUpperCase() == this.wordsClient.toUpperCase()
-      );
-
-      if (checkSuccess.length > 0 || checkError.length > 0) {
-        this.wordsClient = "";
-        this.err = false;
-
-        return;
-      }
-
+      this.check();
       p.map(it => {
         if (it.toUpperCase() === this.wordsClient.toUpperCase()) {
           this.wordsSuccess.push(it);
@@ -60,8 +43,25 @@ export default {
         this.wordsError.push(this.wordsClient);
       }
 
+      this.clear();
+    },
+    check() {
+      if (!this.wordsClient) return;
+
+      const checkSuccess = this.filterWords(this.wordsSuccess);
+      const checkError = this.filterWords(this.wordsError);
+
+      if (checkSuccess.length > 0 || checkError.length > 0) {
+        this.clear();
+        return;
+      }
+    },
+    clear() {
       this.wordsClient = "";
       this.err = false;
+    },
+    filterWords(words) {
+      return words.filter(it => it.toUpperCase() == this.wordsClient.toUpperCase());
     }
   }
 };

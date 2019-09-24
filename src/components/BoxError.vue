@@ -16,7 +16,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .error-words {
   width: 240px;
