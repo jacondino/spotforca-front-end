@@ -1,14 +1,9 @@
 <template>
   <div class="about">
-    <h1 v-if="error>1">cabeça</h1>
-    <h1 v-if="error>2">corpo</h1>
-    <h1 v-if="error>3">braço esquerdo</h1>
-    <h1 v-if="error>4">braço direiro</h1>
-    <h1 v-if="error>5">perna esquerda</h1>
-    <h1 v-if="error>6">perna direita</h1>
+    <component-body :error='error'/>
     <div class="words">
       <div v-for="(item, i) in words.split('').length" :key="i">
-        <span v-if="wordsSuccess.filter((it) => it ===  words[i]).length > 0">{{ words[i] }}</span>
+        <span v-if="wordsSuccess.filter((it) => it === words[i]).length > 0">{{ words[i] }}</span>
       </div>
     </div>
     <input v-model="wordsClient" maxlength="1" />
@@ -17,6 +12,8 @@
 </template>
 
 <script>
+import Body from '../components/Body';
+
 export default {
   name: "game",
   data: () => ({
@@ -25,8 +22,11 @@ export default {
     wordsError: [],
     wordsSuccess: [],
     wordsClient: "",
-    err: false
+    err: false,
   }),
+  components: {
+    'component-body': Body
+  },
   methods: {
     onCheckLetters() {
       const p = this.words.split("");
@@ -78,7 +78,7 @@ export default {
 }
 .words div {
   margin: 1em;
-  border-bottom: 5px solid;
+  border-bottom: 2px solid;
   width: 32px;
   padding-bottom: 6px;
 }
