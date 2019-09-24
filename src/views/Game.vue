@@ -60,9 +60,6 @@ export default {
         this.wordsError.push(this.wordsClient);
       }
 
-      console.log("LetrasCorretas: ", this.wordsSuccess);
-      console.log("LetrasErradas: ", this.wordsError);
-
       this.wordsClient = "";
       this.err = false;
     }

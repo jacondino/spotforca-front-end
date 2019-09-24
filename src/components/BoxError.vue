@@ -11,7 +11,7 @@
 export default {
   name: "BoxError",
   props: {
-    wordsError: []
+    wordsError: Array
   }
 };
 </script>

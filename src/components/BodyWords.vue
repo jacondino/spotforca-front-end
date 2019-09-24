@@ -10,8 +10,8 @@
 export default {
   name: "BodyWords",
   props: {
-    success: [],
-    words: []
+    success: Array,
+    words: String
   }
 };
 </script>
