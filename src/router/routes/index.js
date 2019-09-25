@@ -1,5 +1,6 @@
 import Home from '../../views/Home.vue';
 import Game from '../../views/Game.vue';
+import Ranking from '../../views/Ranking.vue';
 
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: '/game',
     name: 'game',
     component: Game,
+  },
+  {
+    path: '/ranking',
+    name: 'ranking',
+    component: Ranking,
   },
 ];
 

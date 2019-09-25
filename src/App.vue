@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/game">game</router-link>
-    </div>-->
     <router-view />
   </div>
 </template>
@@ -46,5 +42,9 @@ div#container {
 }
 .item svg circle {
   stroke-width: 3 !important;
+}
+.table-dark {
+    color: #fff;
+    background-color: #222326;
 }
 </style>

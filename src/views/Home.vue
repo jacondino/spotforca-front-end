@@ -6,7 +6,7 @@
         <input class="input-nick" placeholder="nick" v-model="nickname" />
         <button>Start</button>
       </span>
-      <a href="#">ranking | tops dos chalala das bandas</a>
+      <router-link to="/ranking">ranking | tops dos chalala das bandas</router-link>
     </div>
   </div>
 </template>
