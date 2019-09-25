@@ -1,10 +1,19 @@
 <template>
-  <div class="about">
-    <Time />
-    <component-box-error v-if="wordsError.length > 0" :wordsError="wordsError" />
-    <component-body :error="error" />
-    <component-body-words :success="wordsSuccess" :words="words" />
-    <input class="input-words" @keyup.enter="onCheckLetters" v-model="wordsClient" maxlength="1" />
+  <div class="game">
+    <div class="header">
+      <Time />
+      <span>Score 1</span>
+    </div>
+    <div class="body">
+    <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</h1>
+      <component-box-error v-if="wordsError.length > 0" :wordsError="wordsError" />
+      <component-body :error="error" />
+      <component-body-words :success="wordsSuccess" :words="words" />
+      <input class="input-words" @keyup.enter="onCheckLetters" v-model="wordsClient" maxlength="1" />
+    </div>
+    <div class="footer">
+
+    </div>
   </div>
 </template>
 
@@ -22,7 +31,7 @@ export default {
     wordsError: [],
     wordsSuccess: [],
     wordsClient: "",
-    err: false,
+    err: false
   }),
   components: {
     "component-body": Body,
@@ -34,7 +43,7 @@ export default {
     onCheckLetters() {
       const word = this.words.split("");
 
-      if(this.check()) return;
+      if (this.check()) return;
 
       word.map(it => {
         if (it.toUpperCase() === this.wordsClient.toUpperCase()) {

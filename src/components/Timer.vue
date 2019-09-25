@@ -19,6 +19,7 @@
 </template>
 
 <script>
+//:paused="true" pausa o cronometro
 export default {
   name: "Timer",
   methods: {
