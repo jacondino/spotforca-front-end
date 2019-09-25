@@ -45,6 +45,7 @@ export default {
   methods: {
     onCheckLetters(w) {
       this.wordsClient = w;
+
       const word = this.words.split("");
 
       if (this.check()) return;

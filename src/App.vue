@@ -12,6 +12,7 @@
 body,
 html {
   background: #222326;
+  height: 100%;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -19,6 +20,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
+  height: 100%;
 }
 
 #nav {
