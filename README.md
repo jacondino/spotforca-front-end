@@ -2,9 +2,9 @@
 
 # preview
 
- ![alt text](https://github.com/AndersonJacondino/spotforca-front-end/blob/master/src/assets/printspot1.PNG)
-
  ![alt text](https://github.com/AndersonJacondino/spotforca-front-end/blob/master/src/assets/printspot2.PNG)
+
+ ![alt text](https://github.com/AndersonJacondino/spotforca-front-end/blob/master/src/assets/printspot1.PNG)
 
   ![alt text](https://github.com/AndersonJacondino/spotforca-front-end/blob/master/src/assets/printspot3.PNG)
 
