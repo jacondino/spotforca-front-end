@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <Time />
     <component-box-error v-if="wordsError.length > 0" :wordsError="wordsError" />
     <component-body :error="error" />
     <component-body-words :success="wordsSuccess" :words="words" />
@@ -11,6 +12,7 @@
 import Body from "../components/Body";
 import BoxError from "../components/BoxError";
 import BodyWords from "../components/BodyWords";
+import Time from "../components/Timer";
 
 export default {
   name: "Game",
@@ -20,18 +22,19 @@ export default {
     wordsError: [],
     wordsSuccess: [],
     wordsClient: "",
-    err: false
+    err: false,
   }),
   components: {
     "component-body": Body,
     "component-box-error": BoxError,
-    "component-body-words": BodyWords
+    "component-body-words": BodyWords,
+    Time
   },
   methods: {
     onCheckLetters() {
       const word = this.words.split("");
 
-      if(this.check()) return
+      if(this.check()) return;
 
       word.map(it => {
         if (it.toUpperCase() === this.wordsClient.toUpperCase()) {
@@ -63,7 +66,7 @@ export default {
         return true;
       }
 
-      return false
+      return false;
     },
     clear() {
       this.wordsClient = "";
