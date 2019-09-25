@@ -1,5 +1,5 @@
 <template>
-  <div class="game">
+  <div id="game" class="game">
     <div class="header">
       <div class="row">
         <div class="col-sm-6 box-score">
@@ -15,7 +15,6 @@
       <component-box-error v-if="wordsError.length > 0" :wordsError="wordsError" />
       <component-body :error="error" />
       <component-body-words :success="wordsSuccess" :words="words" />
-      <input class="input-words" @keyup.enter="onCheckLetters" v-model="wordsClient" maxlength="1" />
     </div>
     <div class="footer"></div>
   </div>
@@ -44,7 +43,8 @@ export default {
     "component-timer": Time
   },
   methods: {
-    onCheckLetters() {
+    onCheckLetters(w) {
+      this.wordsClient = w;
       const word = this.words.split("");
 
       if (this.check()) return;
@@ -85,6 +85,11 @@ export default {
       this.wordsClient = "";
       this.err = false;
     }
+  },
+  created() {
+    document.onkeydown = evt => {
+      this.onCheckLetters(evt.key);
+    };
   }
 };
 </script>

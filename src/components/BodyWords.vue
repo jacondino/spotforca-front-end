@@ -25,7 +25,7 @@ export default {
 }
 .words div {
   margin: 1em;
-  border-bottom: 2px solid;
+  border-bottom: 3px solid;
   width: 32px;
   padding-bottom: 6px;
   height: 56px;
