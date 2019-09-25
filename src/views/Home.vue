@@ -1,7 +1,15 @@
 <template>
   <div class="home">
-    <input class="input-nick" placeholder="nick" v-model="nickname" />
-    <button>Start</button>
+    <div class="box-spot">
+      <h1>
+        SpotForca
+      </h1>
+      <span>
+        <input class="input-nick" placeholder="nick" v-model="nickname" />
+        <button>Start</button>
+      </span>
+      <a href="#">ranking | tops dos chalala das bandas</a>
+    </div>
   </div>
 </template>
 
@@ -35,7 +43,6 @@ export default {
   background-image: url(https://image.flaticon.com/icons/svg/174/174872.svg);
 }
 .home button {
-  z-index: 9;
   border: 4px solid #1ed760;
   border-radius: 2px;
   box-shadow: 1px 4px 0px 1px #0e5b29;
@@ -55,7 +62,6 @@ export default {
   margin-left: -6px;
 }
 .input-nick {
-  z-index: 9;
   border: 4px solid #1ed760;
   border-radius: 2px;
   box-shadow: 3px 3px 0px 2px #0e5b29;
@@ -69,5 +75,26 @@ export default {
   font-size: 24px;
   padding: 0 0 0 1em;
   outline: none;
+}
+.home h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0 0 1em;
+  text-shadow: 2px 2px 0px #888888;
+}
+.box-spot {
+  z-index: 9;
+}
+.box-spot span {
+  display: flex;
+}
+.box-spot a {
+    display: block;
+    margin: 9px 0 0;
+    font-weight: 600;
+    color: #1ed760;
+    font-size: 13px;
+    text-decoration: underline;
 }
 </style>
