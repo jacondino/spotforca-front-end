@@ -1,9 +1,7 @@
 <template>
   <div class="home">
     <div class="box-spot">
-      <h1>
-        SpotForca
-      </h1>
+      <h1>SpotForca</h1>
       <span>
         <input class="input-nick" placeholder="nick" v-model="nickname" />
         <button>Start</button>
@@ -80,8 +78,23 @@ export default {
   font-family: "Montserrat", sans-serif;
   font-size: 40px;
   font-weight: bold;
-  margin: 0 0 1em;
+  margin: 0 0 26px;
   text-shadow: 2px 2px 0px #888888;
+  position: relative;
+  padding: 0 0 12px;
+}
+.home h1:before {
+  content: "";
+  height: 3px;
+  background: white;
+  width: 31px;
+  position: absolute;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  box-shadow: 1px 2px 0px #888888;
 }
 .box-spot {
   z-index: 9;
@@ -90,11 +103,11 @@ export default {
   display: flex;
 }
 .box-spot a {
-    display: block;
-    margin: 9px 0 0;
-    font-weight: 600;
-    color: #1ed760;
-    font-size: 13px;
-    text-decoration: underline;
+  display: block;
+  margin: 9px 0 0;
+  font-weight: 600;
+  color: #1ed760;
+  font-size: 13px;
+  text-decoration: underline;
 }
 </style>
