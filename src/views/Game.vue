@@ -1,19 +1,23 @@
 <template>
   <div class="game">
     <div class="header">
-      <Time />
-      <span>Score 1</span>
+      <div class="row">
+        <div class="col-sm-6 box-score">
+          <span class="score">Score {{1}}</span>
+        </div>
+        <div class="col-sm-6 box-timer">
+          <component-timer />
+        </div>
+      </div>
     </div>
     <div class="body">
-    <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</h1>
+      <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</h1>
       <component-box-error v-if="wordsError.length > 0" :wordsError="wordsError" />
       <component-body :error="error" />
       <component-body-words :success="wordsSuccess" :words="words" />
       <input class="input-words" @keyup.enter="onCheckLetters" v-model="wordsClient" maxlength="1" />
     </div>
-    <div class="footer">
-
-    </div>
+    <div class="footer"></div>
   </div>
 </template>
 
@@ -37,7 +41,7 @@ export default {
     "component-body": Body,
     "component-box-error": BoxError,
     "component-body-words": BodyWords,
-    Time
+    "component-timer": Time
   },
   methods: {
     onCheckLetters() {
@@ -96,5 +100,21 @@ export default {
   text-align: center;
   outline: none;
   margin-top: 2em;
+}
+.score {
+  background: #222326;
+  border: 3px solid #1ed760;
+  border-radius: 20px;
+  color: white;
+  padding: 3px 20px;
+  font-weight: 600;
+}
+.box-score {
+  display: flex;
+  align-items: center;
+}
+.body h1 {
+  font-size: 24px;
+  margin: 12px 0 0;
 }
 </style>

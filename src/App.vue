@@ -1,20 +1,24 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/game">game</router-link>
-    </div> -->
-    <router-view/>
+    </div>-->
+    <router-view />
   </div>
 </template>
 
 <style>
+body,
+html {
+  background: #222326;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
 }
 
 #nav {
@@ -28,5 +32,17 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+div#container {
+  margin: 0 0 0 auto !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item {
+  font-weight: 600;
+}
+.item svg circle {
+  stroke-width: 3 !important;
 }
 </style>

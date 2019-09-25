@@ -28,6 +28,7 @@ export default {
   border-bottom: 2px solid;
   width: 32px;
   padding-bottom: 6px;
+  height: 56px;
 }
 .words div span {
   font-size: 2em;

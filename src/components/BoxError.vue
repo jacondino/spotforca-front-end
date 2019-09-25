@@ -22,10 +22,11 @@ export default {
   position: absolute;
   padding: 11px;
   left: 3em;
-  background: #fff0f0;
+  background: #222326;
   border-radius: 10px;
   display: block;
   font-size: 14px;
+  border: 3px solid #1ed760;
 }
 .error-words h4 {
   margin: 0;
