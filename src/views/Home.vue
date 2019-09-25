@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <input class="input-nick" v-model="nickname" />
+    <input class="input-nick" placeholder="nick" v-model="nickname" />
     <button>Start</button>
   </div>
 </template>
@@ -25,9 +25,10 @@ export default {
   border: 4px solid #1ed760;
   border-radius: 2px;
   box-shadow: 1px 4px 0px 1px #0e5b29;
+  text-shadow: 2px 2px 0px #0e5b29;
   color: #ffffff;
   height: 30px;
-  width: 93px;
+  width: 103px;
   border-bottom-right-radius: 36px;
   border-top-right-radius: 36px;
   height: 60px;
