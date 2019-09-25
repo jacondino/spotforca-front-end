@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <svg width="580" height="400" xmlns="http://www.w3.org/2fff/svg">
+    <svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
         <g>
           <title>Layer 1</title>
           <line stroke-linecap="null" stroke-linejoin="null" id="svg_5" y2="318.453125" x2="398.5" y1="318.453125" x1="68.5" fill-opacity="null" stroke-opacity="null" stroke-width="3" stroke="#fff" fill="none"/>
