@@ -41,7 +41,8 @@ export default {
     err: false,
     res: [],
     load: false,
-    score: 1
+    score: 1,
+    challenges: 0
   }),
   components: {
     "component-body": Body,
@@ -81,10 +82,17 @@ export default {
           if (this.err) {
             this.error++;
             if (this.error === 7) {
-              setTimeout(() => {
-                alert("Você errou!");
-                window.location.reload();
-              }, 2000);
+              this.challenges++;
+              if (this.challenges > 0) {
+                axios
+                  .get("https://spotforca-server.herokuapp.com/challenges/random")
+                  .then(response => console.log(response));
+              } else {
+                setTimeout(() => {
+                  alert("Você errou!");
+                  window.location.reload();
+                }, 1000);
+              }
             }
             this.wordsError.push(this.wordsClient);
             this.err = false;
@@ -97,14 +105,14 @@ export default {
           this.$store.dispatch("loadwordsSucces", wd);
 
           let tes = false;
-          this.wordsSuccess.map((it) => {
-            if(!it) {
+          this.wordsSuccess.map(it => {
+            if (!it) {
               tes = true;
             }
-          })
+          });
 
           if (!tes) {
-            alert('Você passou!')
+            alert("Você passou!");
             this.score++;
             this.error = 1;
             await axios
