@@ -2,9 +2,14 @@
   <div class="home">
     <div class="box-spot">
       <h1>SpotForca</h1>
+      <div class="form-group">
+        <select v-model="categorie" class="form-control" id="exampleFormControlSelect1" required>
+          <option v-for="item in cat" :key="item.id" :value="item">{{item.name}}</option>
+        </select>
+      </div>
       <span>
         <input class="input-nick" placeholder="nick" v-model="nickname" />
-        <button>Start</button>
+        <button @click="start()">Start</button>
       </span>
       <router-link to="/ranking">ranking | tops dos chalala das bandas</router-link>
     </div>
@@ -12,11 +17,48 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "home",
   data: () => ({
-    nickname: ""
-  })
+    nickname: "",
+    cat: [],
+    categorie: null
+  }),
+  methods: {
+    load() {
+      axios
+        .get("https://spotforca-server.herokuapp.com/categories")
+        .then(response => (this.cat = response.data));
+    },
+    async start() {
+      if (this.categorie && this.nickname) {
+        await axios
+          .get(
+            `https://spotforca-server.herokuapp.com/categories/${this.categorie.id}/words/random`
+          )
+          .then(response => {
+            this.$store.commit("setwords", response.data);
+            this.$store.commit("setcat", this.categorie);
+            
+            this.$router.push('/game');
+          });
+        await axios
+          .post(`https://spotforca-server.herokuapp.com/rounds`, {
+            nickname: this.nickname
+          })
+          .then(response => {
+            this.$store.commit("setbody", response.data);
+          });
+      } else {
+        alert("Selecione uma categoria e um nickname!");
+      }
+    }
+  },
+  mounted() {
+    this.load();
+  }
 };
 </script>
 
@@ -109,5 +151,20 @@ export default {
   color: #1ed760;
   font-size: 13px;
   text-decoration: underline;
+}
+#exampleFormControlSelect1 {
+  border: 4px solid #1ed760;
+  border-radius: 2px;
+  -webkit-box-shadow: 3px 3px 0px 2px #0e5b29;
+  box-shadow: 3px 3px 0px 2px #0e5b29;
+  color: #222326;
+  height: 30px;
+  width: 328px;
+  border-radius: 36px;
+  height: 60px;
+  font-weight: 600;
+  font-size: 24px;
+  padding: 0 0 0 1em;
+  outline: none;
 }
 </style>

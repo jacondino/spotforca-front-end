@@ -2,95 +2,173 @@
   <div id="game" class="game container">
     <div class="header">
       <div class="row">
-        <div class="col-sm-6 box-score">
-          <span class="score">Score {{1}}</span>
+        <div class="col-sm-6 box-score m-3">
+          <span class="score">Score {{score}}</span>
         </div>
-        <div class="col-sm-6 box-timer">
-          <component-timer />
-        </div>
+        <div class="col-sm-6 box-timer"></div>
       </div>
     </div>
     <div class="body">
-      <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit?</h1>
+      <h1>{{cat.name}}</h1>
       <component-box-error v-if="wordsError.length > 0" :wordsError="wordsError" />
       <component-body :error="error" />
-      <component-body-words :success="wordsSuccess" :words="words" />
+      <div v-if="!load" class="words">
+        <div v-for="item in wordsSuccess" :key="item">
+          <span>{{ item }}</span>
+        </div>
+      </div>
+      <div v-else>
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     </div>
     <div class="footer"></div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import Body from "../components/Body";
 import BoxError from "../components/BoxError";
-import BodyWords from "../components/BodyWords";
-import Time from "../components/Timer";
 
 export default {
   name: "Game",
   data: () => ({
-    words: "Metallica",
     error: 1,
     wordsError: [],
-    wordsSuccess: [],
     wordsClient: "",
-    err: false
+    err: false,
+    res: [],
+    load: false,
+    score: 1
   }),
   components: {
     "component-body": Body,
-    "component-box-error": BoxError,
-    "component-body-words": BodyWords,
-    "component-timer": Time
+    "component-box-error": BoxError
   },
   methods: {
-    onCheckLetters(w) {
+    async onCheckLetters(w) {
+      this.load = true;
       this.wordsClient = w;
 
-      const word = this.words.split("");
-
-      if (this.check()) return;
-
-      word.map(it => {
-        if (it.toUpperCase() === this.wordsClient.toUpperCase()) {
-          this.wordsSuccess.push(it);
-          this.err = true;
-        }
-      });
-
-      if (!this.err) {
-        this.error++;
-        this.wordsError.push(this.wordsClient);
+      if (this.check()) {
+        this.load = false;
+        return;
       }
 
-      this.clear();
+      let config = {
+        headers: {
+          accept: "application/json",
+          hash: this.body.hash,
+          "Content-Type": "application/json"
+        }
+      };
+
+      await axios
+        .put(
+          `https://spotforca-server.herokuapp.com/words/${this.words.id}/check`,
+          {
+            letter: w
+          },
+          config
+        )
+        .then(async response => {
+          this.res = response.data;
+
+          if (this.res.length === 0) this.err = true;
+
+          if (this.err) {
+            this.error++;
+            if (this.error === 7) {
+              setTimeout(() => {
+                alert("Você errou!");
+                window.location.reload();
+              }, 2000);
+            }
+            this.wordsError.push(this.wordsClient);
+            this.err = false;
+            this.load = false;
+            return;
+          }
+          let t = this.res[0];
+          let wd = this.wordsSuccess;
+          wd[t] = this.wordsClient;
+          this.$store.dispatch("loadwordsSucces", wd);
+
+          let tes = false;
+          this.wordsSuccess.map((it) => {
+            if(!it) {
+              tes = true;
+            }
+          })
+
+          if (!tes) {
+            alert('Você passou!')
+            this.score++;
+            this.error = 1;
+            await axios
+              .get(
+                `https://spotforca-server.herokuapp.com/categories/${this.cat.id}/words/random`
+              )
+              .then(response => {
+                this.$store.commit("setwords", response.data);
+                this.wordsError = [];
+              });
+          }
+
+          this.clear();
+        });
     },
     check() {
       if (!this.wordsClient) return true;
 
-      const checkSuccess = this.wordsSuccess.filter(
-        it => it.toUpperCase() == this.wordsClient.toUpperCase()
-      );
-
-      const checkError = this.wordsError.filter(
-        it => it.toUpperCase() == this.wordsClient.toUpperCase()
-      );
-
-      if (checkSuccess.length > 0 || checkError.length > 0) {
-        this.clear();
+      if (
+        "QWERTYUIOPLKJHGFDSAZXCVBNM".indexOf(this.wordsClient.toUpperCase()) < 0
+      ) {
         return true;
       }
 
+      if (this.wordsError) {
+        const checkError = this.wordsError.filter(
+          it => it.toUpperCase() == this.wordsClient.toUpperCase()
+        );
+
+        if (checkError.length > 0) {
+          this.clear();
+          return true;
+        }
+      }
       return false;
     },
     clear() {
+      this.load = false;
       this.wordsClient = "";
       this.err = false;
+      this.res = [];
+    }
+  },
+  computed: {
+    cat() {
+      return this.$store.getters.cat;
+    },
+    words() {
+      return this.$store.getters.word;
+    },
+    body() {
+      return this.$store.getters.body;
+    },
+    wordsSuccess() {
+      return this.$store.getters.wordsSuccess;
     }
   },
   created() {
-    document.onkeydown = evt => {
-      this.onCheckLetters(evt.key);
-    };
+    if (this.wordsSuccess.length === 0) this.$router.push("/");
+    if (this.$route.name === "game") {
+      document.onkeydown = evt => {
+        this.onCheckLetters(evt.key);
+      };
+    }
   }
 };
 </script>
@@ -122,5 +200,21 @@ export default {
 .body h1 {
   font-size: 24px;
   margin: 12px 0 0;
+}
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.words div {
+  margin: 1em;
+  border-bottom: 3px solid;
+  width: 32px;
+  padding-bottom: 6px;
+  height: 56px;
+}
+.words div span {
+  font-size: 2em;
+  font-weight: 400;
 }
 </style>
