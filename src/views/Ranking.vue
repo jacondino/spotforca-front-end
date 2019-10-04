@@ -53,7 +53,8 @@
 
 <script>
 export default {
-  name: "Ranking"
+  name: "Ranking",
+  
 };
 </script>
 

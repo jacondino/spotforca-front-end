@@ -85,8 +85,53 @@ export default {
               this.challenges++;
               if (this.challenges > 0) {
                 axios
-                  .get("https://spotforca-server.herokuapp.com/challenges/random")
-                  .then(response => console.log(response));
+                  .get(
+                    "https://spotforca-server.herokuapp.com/challenges/random"
+                  )
+                  .then(response => {
+                    this.$dialog
+                      .confirm(response.data.value, {
+                        okText: "Não",
+                        cancelText: "Sim"
+                      })
+                      .then(function(dialog) {
+                        axios
+                          .put(
+                            `https://spotforca-server.herokuapp.com/challenges/${response.data.id}/check`,
+                            {
+                              answerId: response.data.answers[1].id
+                            },
+                            config
+                          )
+                          .then(response => {
+                            if (response.data.right) {
+                              this.error = 6;
+                              this.challenges = -10;
+                            } else {
+                              alert("Você errou!");
+                              window.location.reload();
+                            }
+                          });
+                      })
+                      .catch(function() {
+                        axios
+                          .put(
+                            `https://spotforca-server.herokuapp.com/challenges/${response.data.id}/check`,
+                            {
+                              answerId: response.data.answers[0].id
+                            }
+                          )
+                          .then(response => {
+                            if (response.data.right) {
+                              this.error = 6;
+                              this.challenges = -10;
+                            } else {
+                              alert("Você errou!");
+                              window.location.reload();
+                            }
+                          });
+                      });
+                  });
               } else {
                 setTimeout(() => {
                   alert("Você errou!");
