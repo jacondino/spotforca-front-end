@@ -10,40 +10,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="(item, i) in peoples" :key="i">
             <td>
-              <font-awesome-icon :icon="'heart'" class="fonts1" />
+              <font-awesome-icon :icon="'heart'" :class="i === 0 ? 'fonts1' : i === 1 ? 'fonts2' : i === 2 ? 'fonts3' : 'fonts'" />
             </td>
-            <td>Mark 1</td>
-            <td>100</td>
-          </tr>
-          <tr>
-            <td>
-              <font-awesome-icon :icon="'heart'" class="fonts2" />
-            </td>
-            <td>Mark 2</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>
-              <font-awesome-icon :icon="'heart'" class="fonts3" />
-            </td>
-            <td>Mark 3</td>
-            <td>30</td>
-          </tr>
-          <tr>
-            <td>
-              <font-awesome-icon :icon="'heart'" class="fonts" />
-            </td>
-            <td>Mark 4</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>
-              <font-awesome-icon :icon="'heart'" class="fonts" />
-            </td>
-            <td>Mark 5</td>
-            <td>10</td>
+            <td>{{item.nickname}}</td>
+            <td>{{item.score}}</td>
           </tr>
         </tbody>
       </table>
@@ -52,9 +24,21 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Ranking",
-  
+  data: () => ({
+    peoples: []
+  }),
+  created() {
+    axios
+      .get(
+        `https://spotforca-server.herokuapp.com/rounds`
+      )
+      .then(response => {
+        this.peoples = response.data;
+      });
+  }
 };
 </script>
 
