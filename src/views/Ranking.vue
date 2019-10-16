@@ -33,7 +33,7 @@ export default {
   created() {
     axios
       .get(
-        `https://spotforca-server.herokuapp.com/rounds`
+        `http://localhost:3000/rounds`
       )
       .then(response => {
         this.peoples = response.data;

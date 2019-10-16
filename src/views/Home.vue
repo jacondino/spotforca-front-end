@@ -29,14 +29,14 @@ export default {
   methods: {
     load() {
       axios
-        .get("https://spotforca-server.herokuapp.com/categories")
+        .get("http://localhost:3000/categories")
         .then(response => (this.cat = response.data));
     },
     async start() {
       if (this.categorie && this.nickname) {
         await axios
           .get(
-            `https://spotforca-server.herokuapp.com/categories/${this.categorie.id}/words/random`
+            `http://localhost:3000/categories/${this.categorie.id}/words/random`
           )
           .then(response => {
             this.$store.commit("setwords", response.data);
@@ -45,7 +45,7 @@ export default {
             this.$router.push('/game');
           });
         await axios
-          .post(`https://spotforca-server.herokuapp.com/rounds`, {
+          .post(`http://localhost:3000/rounds`, {
             nickname: this.nickname
           })
           .then(response => {
