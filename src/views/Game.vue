@@ -68,7 +68,7 @@ export default {
 
       await axios
         .put(
-          `http://localhost:3000/words/${this.words.id}/check`,
+          `https://spotforca-server.herokuapp.com/words/${this.words.id}/check`,
           {
             letter: w
           },
@@ -86,7 +86,7 @@ export default {
               if (this.challenges > 0) {
                 axios
                   .get(
-                    "http://localhost:3000/challenges/random"
+                    "https://spotforca-server.herokuapp.com/challenges/random"
                   )
                   .then(response => {
                     this.$dialog
@@ -97,7 +97,7 @@ export default {
                       .then(function(dialog) {
                         axios
                           .put(
-                            `http://localhost:3000/challenges/${response.data.id}/check`,
+                            `https://spotforca-server.herokuapp.com/challenges/${response.data.id}/check`,
                             {
                               answerId: response.data.answers[1].id
                             },
@@ -116,7 +116,7 @@ export default {
                       .catch(function() {
                         axios
                           .put(
-                            `http://localhost:3000/challenges/${response.data.id}/check`,
+                            `https://spotforca-server.herokuapp.com/challenges/${response.data.id}/check`,
                             {
                               answerId: response.data.answers[0].id
                             }
@@ -151,9 +151,9 @@ export default {
             const pos = this.res[index];
 
             wd[pos] = this.wordsClient;
-            
+
           }
-          
+
           this.$store.dispatch("loadwordsSucces", wd);
 
           let tes = false;
@@ -169,7 +169,7 @@ export default {
             this.error = 1;
             await axios
               .get(
-                `http://localhost:3000/categories/${this.cat.id}/words/random`
+                `https://spotforca-server.herokuapp.com/categories/${this.cat.id}/words/random`
               )
               .then(response => {
                 this.$store.commit("setwords", response.data);

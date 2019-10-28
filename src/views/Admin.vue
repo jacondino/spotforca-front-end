@@ -77,7 +77,7 @@ export default {
     setCategorie() {
       axios
         .post(
-          `http://localhost:3000/categories`,
+          `https://spotforca-server.herokuapp.com/categories`,
           {
             name: this.categorie
           },
@@ -90,7 +90,7 @@ export default {
     setWords() {
       axios
         .post(
-          `http://localhost:3000/words`,
+          `https://spotforca-server.herokuapp.com/words`,
           {
             name: this.words.name,
             catagoryId: this.words.categorie
@@ -104,7 +104,7 @@ export default {
     setChallenge() {
       axios
         .post(
-          `http://localhost:3000/challenges`,
+          `https://spotforca-server.herokuapp.com/challenges`,
           {
             value: this.challenges.name,
             answers: [
@@ -123,11 +123,11 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/categories")
+      .get("https://spotforca-server.herokuapp.com/categories")
       .then(response => (this.cat = response.data));
     setTimeout(async () => {
       await axios
-        .post("http://localhost:3000/credencials", {
+        .post("https://spotforca-server.herokuapp.com/credencials", {
           user: "string",
           pass: "string"
         })
