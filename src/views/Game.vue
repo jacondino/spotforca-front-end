@@ -24,6 +24,12 @@
       </div>
     </div>
     <div class="footer"></div>
+    <div style="position: fixed;bottom: 0;left: 0;">
+      <img width="250" src="../assets/IMG.png" />
+    </div>
+    <div style="position: fixed;bottom: 0;right: 0;transform: rotateY(180deg);">
+      <img width="250" src="../assets/IMG.png" />
+    </div>
   </div>
 </template>
 
@@ -151,7 +157,6 @@ export default {
             const pos = this.res[index];
 
             wd[pos] = this.wordsClient;
-
           }
 
           this.$store.dispatch("loadwordsSucces", wd);
