@@ -12,6 +12,7 @@
         <button @click="start()">Start</button>
       </span>
       <router-link to="/ranking">ranking | tops dos chalala das bandas</router-link>
+            <router-link to="/admin">admin</router-link>
     </div>
   </div>
 </template>
