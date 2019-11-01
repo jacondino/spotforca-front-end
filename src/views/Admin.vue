@@ -128,8 +128,8 @@ export default {
     setTimeout(async () => {
       await axios
         .post("https://spotforca-server.herokuapp.com/credencials", {
-          user: "string",
-          pass: "string"
+          user: "admin",
+          pass: "@dmin321"
         })
         .then(response => {
           this.config = {
